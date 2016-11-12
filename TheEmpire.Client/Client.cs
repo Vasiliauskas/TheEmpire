@@ -27,16 +27,32 @@ namespace TheEmpire.Client
             while (true)
             {
                 var nextTurn = WaitNextTurn();
+                Console.WriteLine("Next Turn: " + nextTurn.Message);
+                Console.WriteLine("Next Turn: " + nextTurn.Status);
+
                 if (nextTurn.GameFinished)
+                {
+                    Console.WriteLine("Game finished: " + nextTurn.FinishCondition);
                     return;
+                }
 
                 if (nextTurn.TurnComplete)
                 {
-                    if (!TakeTurn()) // failover if one failed, do second
+                    //if (!TakeTurn()) // failover if one failed, do second
+                    try
+                    {
                         TakeTurn();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Turn failed: " + ex.Message);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                 }
 
                 Thread.Sleep(50);
+                Console.WriteLine("______________________________");
             }
         }
 
@@ -67,6 +83,8 @@ namespace TheEmpire.Client
             _lastTurn = view.Turn;
             try
             {
+                Console.WriteLine($"Taking Turn {view.Mode}");
+
                 IEnumerable<Position> req = null;
                 if (view.Mode == "TacMan")
                     req = new TacManClient().PerformMove(view);
@@ -74,10 +92,13 @@ namespace TheEmpire.Client
                     req = new GhostClient().PerformMove(view);
 
                 var responseMove = _service.PerformMove(req);
+                Console.WriteLine($"Move response {responseMove.Message}");
+                Console.WriteLine($"Move response {responseMove.Status}");
                 // pratesti algo
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Taking Turn {_lastTurn}failed: " + ex.Message);
                 return false;
             }
             return true;
