@@ -24,3 +24,7 @@ C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Clie
 C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.exe
 C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.pdb
 C:\Users\bbox\Source\Repos\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
+C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\bin\Debug\Maps\map2.txt
+C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\bin\Debug\Maps\map5.txt
+C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\bin\Debug\Maps\map4.txt
+C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\bin\Debug\Maps\map3.txt

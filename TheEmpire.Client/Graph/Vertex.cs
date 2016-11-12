@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace TheEmpire.Client.Graph
@@ -13,6 +14,7 @@ namespace TheEmpire.Client.Graph
             HasTacman = hasTacman;
             HasCookie = hasCookie;
             Edges = new List<Edge>();
+            
         }
 
         public int X { get; private set; }
@@ -21,6 +23,23 @@ namespace TheEmpire.Client.Graph
         public bool HasTacman { get; set; }
         public bool HasCookie { get; set; }
 
+        public int Distance { get; set; }
+        public Vertex PreviousShortestPathNode { get; set; }
+
         public List<Edge> Edges { get; private set; }
+
+        public char GetVisualizingChnar()
+        {
+            if (HasTacman)
+                return 'T';
+
+            if (HasGhost)
+                return 'G';
+
+            if (HasCookie)
+                return '.';
+
+            return ' ';
+        }
     }
 }
