@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 using TheEmpire.Client.DTO;
 using TheEmpire.Client.Services;
 
+<<<<<<< HEAD
+namespace TheEmpire.Client
+{
+    abstract class Client
+    {
+        protected bool _isGameComplete;
+        protected readonly GameService _service;
+
+        public Client(string serverUrl)
+        {
+            _service = new GameService(serverUrl);
+=======
 namespace TheEmpire.Client
 {
     abstract class Client
@@ -25,11 +37,11 @@ namespace TheEmpire.Client
             _service = new ClientService(serverUrl);
             _ghostClient = new GhostClient();
             _ghostClient = new GhostClient();
+>>>>>>> e71f7621b5666e47f8dcca2d5445609684725bc4
         }
 
         public void Start()
         {
-            GetSessionID();
             CreatePlayer();
             GetRefTurn();
             while (true)
@@ -65,11 +77,6 @@ namespace TheEmpire.Client
             _service.CreatePlayer();
         }
 
-        private void GetSessionID()
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual void IsGameCompleted()
         {
         }
@@ -80,7 +87,7 @@ namespace TheEmpire.Client
             try
             {
                 var resp = PerformMove(view);
-                var responseMove = _service.PerformMove(resp);
+                var responseMove = _service.PerformMove(null);
                 // pratesti
             }
             catch(Exception ex)
