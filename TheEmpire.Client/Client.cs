@@ -4,16 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TheEmpire.Client.DTO;
 
 namespace TheEmpire.Client
 {
     class Client
     {
-        private readonly string _serverUrl;
-        private bool _isGameComplete;
+        protected readonly string _serverUrl;
+        protected bool _isGameComplete;
+        protected ClientService _service;
+
         public Client(string serverUrl)
         {
             _serverUrl = serverUrl;
+            _service = new ClientService(serverUrl);
         }
 
         public void Start()
@@ -21,14 +25,22 @@ namespace TheEmpire.Client
             GetSessionID();
             CreatePlayer();
             GetRefTurn();
-            while (!_isGameComplete)
+            while (true)
             {
-                WaitNextTurn();
-                Thread.Sleep(5);
+                var nextTurn = WaitNextTurn();
+                if (nextTurn.GameFinished)
+                    break;
+
+                if(nextTurn.YourTurn && !nextTurn.TurnComplete)
+                {
+                    TakeTurn();
+                }
+
+                Thread.Sleep(50);
             }
         }
 
-        private void WaitNextTurn()
+        private WaitNextTurnResp WaitNextTurn()
         {
             throw new NotImplementedException();
         }

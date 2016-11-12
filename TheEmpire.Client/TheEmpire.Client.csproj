@@ -62,7 +62,6 @@
     <Compile Include="DTO\WaitNextTurnReq.cs" />
     <Compile Include="DTO\WaitNextTurnResp.cs" />
     <Compile Include="MapModels\Map.cs" />
-    <Compile Include="MapModels\Graph.cs" />
     <Compile Include="RestHelper.cs" />
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Ghosts\GhostClient.cs" />

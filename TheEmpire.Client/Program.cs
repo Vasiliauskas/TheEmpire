@@ -14,6 +14,7 @@ namespace TheEmpire.Client
         static void Main(string[] args)
         {
             var client = new TacManClient(ConfigurationManager.AppSettings["connection"]);
+            client.Start();
         }
 
         static void Test()
