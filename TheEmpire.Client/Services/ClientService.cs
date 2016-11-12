@@ -13,7 +13,11 @@ namespace TheEmpire.Client
 {
     class ClientService
     {
+        private static readonly Random _random = new Random();
+
         private string _serverUrl;
+        private int _seqNumber = 1;
+        private readonly int _sessionId = _random.Next(Int32.MaxValue);
 
         public ClientService(string serverUrl)
         {
@@ -23,10 +27,11 @@ namespace TheEmpire.Client
         public CreatePlayerResp CreatePlayer()
         {
             var addr = _serverUrl+"/ClientService.svc/json/CreatePlayer";
+            var teamName = ConfigurationManager.AppSettings["TeamName"];
 
             var createPlayerRequest = new CreatePlayerReq()
             {
-                Auth = new ReqAuth() { ClientName = "test", SequenceNumber = 1, SessionId = 4564, TeamName = "The Empire" }
+                Auth = new ReqAuth() { ClientName = "test1", SequenceNumber = GetSequenceNumber(), SessionId = _sessionId, TeamName = teamName }
             };
             var data = Newtonsoft.Json.JsonConvert.SerializeObject(createPlayerRequest);
 
@@ -37,6 +42,11 @@ namespace TheEmpire.Client
             {
                 return (CreatePlayerResp)serializer.Deserialize(streamReader, typeof(CreatePlayerResp));
             }
+        }
+
+        private int GetSequenceNumber()
+        {
+            return _seqNumber++;
         }
 
         public bool WaitNextTurn()

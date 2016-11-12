@@ -25,7 +25,7 @@ namespace TheEmpire.Client.DTO
             get
             {
                 var secret = ConfigurationManager.AppSettings["AuthSecret"];
-                var authString = $"{TeamName}:{ClientName}:{SessionId}+{SequenceNumber}{secret}";
+                var authString = $"{TeamName}:{ClientName}:{SessionId}:{SequenceNumber}{secret}";
                 return ComputeSha1(authString);
             }
         }
