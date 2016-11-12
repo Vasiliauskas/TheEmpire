@@ -13,7 +13,7 @@ namespace TheEmpire.Client.Ghosts
         public List<Position> PerformMove(GetPlayerViewResp view)
         {
             var map = new Map(view.Map);
-            var cell = map.Cells.Where(c => c.Content == Content.Pacman).Single();
+            var cell = map.Cells.Where(c => c.Content == Content.Ghost).Single();
             var targetCell = cell.Neighbours.First();
 
             var response = new List<Position>();
