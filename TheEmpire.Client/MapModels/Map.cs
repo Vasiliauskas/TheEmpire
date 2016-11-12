@@ -91,6 +91,11 @@ namespace TheEmpire.Client.MapModels
         public Point Point { get; set; }
         public Content Content { get; set; }
 
+        public List<Cell> Neighbours
+        {
+            get { return _neighbours; }
+        }
+
         public void AddNeighbour(Cell cell)
         {
             if (_neighbours.Any(c => c.Point.X == cell.Point.X && c.Point.Y == cell.Point.Y))

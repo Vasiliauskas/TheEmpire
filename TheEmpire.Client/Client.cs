@@ -8,7 +8,7 @@ using TheEmpire.Client.DTO;
 
 namespace TheEmpire.Client
 {
-    abstract class Client
+    class Client
     {
         protected readonly string _serverUrl;
         protected bool _isGameComplete;
@@ -43,7 +43,9 @@ namespace TheEmpire.Client
 
         private WaitNextTurnResp WaitNextTurn()
         {
-            _service.WaitNextTurn();
+            throw new NotImplementedException();
+
+            //_service.WaitNextTurn();
         }
 
         private void GetRefTurn()
@@ -67,11 +69,16 @@ namespace TheEmpire.Client
 
         protected bool TakeTurn()
         {
-            var view = _service.GetPlayerView();
+            var view = _service.GetPlayerView(1);
             try
             {
-                var resp = PerformMove(view);
-                var responseMove = _service.PerformMove(resp);
+                IEnumerable<Position> req = null;
+                if (view.Mode == "TacMan")
+                    req = new TacManClient().PerformMove(view);
+                //else
+                //    new GhostClient();
+
+                var responseMove = _service.PerformMove(req);
                 // pratesti
             }
             catch(Exception ex)
@@ -81,6 +88,6 @@ namespace TheEmpire.Client
             return true;
         }
 
-        protected abstract PerformMoveRequest PerformMove(GetPlayerViewResp view);
+        //protected abstract PerformMoveRequest PerformMove(GetPlayerViewResp view);
     }
 }

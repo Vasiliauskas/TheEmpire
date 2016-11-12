@@ -13,10 +13,11 @@ namespace TheEmpire.Client
     {
         static void Main(string[] args)
         {
-            var client = new TacManClient(ConfigurationManager.AppSettings["connection"]);
+            var client = new Client(ConfigurationManager.AppSettings["connection"]);
             client.Start();
         }
 
+        // testing purposes
         static void Test()
         {
             var dto = new DTO.EnMapData();
@@ -44,7 +45,7 @@ namespace TheEmpire.Client
                 {
                     var cell = cells.SingleOrDefault(c => c.Point.X == i);
                     if (cell == null)
-                        rowString += "#";
+                        rowString += "";
                     else
                     {
                         switch (cell.Content)

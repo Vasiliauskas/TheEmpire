@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client
 {
-    class GhostClient : Client
+    class GhostClient 
     {
-        public GhostClient(string serverUrl) : base(serverUrl)
+        public GhostClient(string serverUrl) 
     {
     }
 }

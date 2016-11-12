@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheEmpire.Client.DTO;
+using TheEmpire.Client.MapModels;
 
 namespace TheEmpire.Client
 {
-    class TacManClient : Client
+    class TacManClient
     {
-        private readonly ClientService _service;
-
-        public TacManClient(string serverUrl) : base(serverUrl)
+        public List<Position> PerformMove(GetPlayerViewResp view)
         {
-            _service = new ClientService(serverUrl);
-            var player = _service.CreatePlayer();
-            var refTurn = 0;
-            var nexturnResp = _service.WaitNextTurn(player.PlayerId, refTurn);
-            Console.WriteLine(nexturnResp.Status+nexturnResp.TurnComplete);
+            var map = new Map(view.Map);
+            var cell = map.Cells.Where(c => c.Content == Content.Pacman).Single();
+            var targetCell = cell.Neighbours.First();
+
+            var response = new List<Position>();
+            response.Add(new Position() { Col = targetCell.Point.X, Row = targetCell.Point.Y });
+
+            return response;
         }
     }
 }
