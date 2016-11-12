@@ -16,11 +16,11 @@ namespace TheEmpire.Client.DTO
     //Return LowercaseHex(SHA1(SignBytes))
     public class ReqAuth
     {
-        string TeamName { get; set; }
-        string ClientName { get; set; }
-        int SessionId { get; set; }
-        int SequenceNumber { get; set; }
-        string AuthCode
+        public string TeamName { get; set; }
+        public string ClientName { get; set; }
+        public int SessionId { get; set; }
+        public int SequenceNumber { get; set; }
+        public string AuthCode
         {
             get
             {
