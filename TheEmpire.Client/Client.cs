@@ -95,6 +95,10 @@ namespace TheEmpire.Client
                     req = new GhostClient().PerformMove(view);
 
                 var responseMove = _service.PerformMove(req);
+                var positions = string.Join("|", req.Select(c => $"{c.Col}, {c.Row}"));
+                Console.WriteLine($"Moving to {positions}");
+                Console.WriteLine($"Moving from ghosts {view.PreviousGhostPositions.Select(c => $"{c.Col}, {c.Row}")}");
+                Console.WriteLine($"Moving from tecman {view.PreviousTecmanPosition.Col}, {view.PreviousTecmanPosition.Col}");
                 Console.WriteLine($"Move response {responseMove.Message}");
                 Console.WriteLine($"Move response {responseMove.Status}");
                 // pratesti algo
