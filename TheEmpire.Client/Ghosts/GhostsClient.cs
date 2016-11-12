@@ -19,23 +19,62 @@ namespace TheEmpire.Client.Ghosts
 
             for (int i = 0; i < view.GhostPositions.Count(); i++)
             {
-                var position = GetNextPosition(view.Map, view.GhostPositions[i], view.TecmanPosition, view.PreviousGhostPositions, view.PreviousTecmanPosition);
+                var position = GetNextPosition(view.Map, view.GhostPositions[i], view.TecmanPosition, view.PreviousGhostPositions[i], view.PreviousTecmanPosition, map);
                 resultMoves.Add(position);
             }
 
             return resultMoves;
         }
 
-        private Position GetNextPosition(EnMapData map, EnPoint enPoint, EnPoint tecmanPosition, EnPoint[] previousGhostPositions, EnPoint previousTecmanPosition)
+        private Position GetNextPosition(EnMapData mapRaw, EnPoint ghostPosition, EnPoint tecmanPosition, EnPoint previousGhostPosition, EnPoint previousTecmanPosition, Map map)
         {
-            throw new NotImplementedException();
+            var ghostOnMap = map.Cells.Where(c => c.Point.X == ghostPosition.Col && c.Point.Y == ghostPosition.Row).FirstOrDefault();
+
+            //first move
+            if (previousGhostPosition.Col == ghostPosition.Col && previousGhostPosition.Row == ghostPosition.Row)
+            {
+                //Return any legal move
+                var destinationCell = ghostOnMap.Neighbours.OrderBy(o => Guid.NewGuid()).FirstOrDefault();
+                return new Position() { Col = destinationCell.Point.X, Row = destinationCell.Point.Y };
+            }
+
+            var xDirction = previousGhostPosition.Col - ghostPosition.Col;
+            var yDirection = previousGhostPosition.Row - ghostPosition.Row;
+
+            //Changing X
+            if (xDirction != 0)
+            {
+                var nextX = ghostPosition.Col + xDirction;
+                var nextY = ghostPosition.Row;
+                if (ghostOnMap.Neighbours.Any(c => c.Point.X == nextX && c.Point.Y == nextY))
+                {
+                    return new Position() { Col = nextX, Row = nextY };
+                }
+                else
+                {
+                    var nextMove = ghostOnMap.Neighbours.OrderBy(o => Guid.NewGuid()).FirstOrDefault();
+                    //TODO: this is not legit move sometimes
+                    return new Position() { Col = nextMove.Point.X, Row = nextMove.Point.Y };
+                }
+            }
+
+            //Changing Y
+            else 
+            {
+                var nextX = ghostPosition.Col;
+                var nextY = ghostPosition.Row + yDirection;
+                if (ghostOnMap.Neighbours.Any(c => c.Point.X == nextX && c.Point.Y == nextY))
+                {
+                    return new Position() { Col = nextX, Row = nextY };
+                }
+                else
+                {
+                    var nextMove = ghostOnMap.Neighbours.OrderBy(o => Guid.NewGuid()).FirstOrDefault();
+                    return new Position() { Col = nextMove.Point.X, Row = nextMove.Point.Y };
+                }
+            }
         }
 
     }
 
-
-    public static class CellExts
-    {
-
-    }
 }
