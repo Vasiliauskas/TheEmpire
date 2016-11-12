@@ -56,10 +56,12 @@
     <Compile Include="Client.cs" />
     <Compile Include="DTO\ClientPlayerReq.cs" />
     <Compile Include="DTO\ClientPlayerResp.cs" />
+    <Compile Include="DTO\EnMap.cs" />
     <Compile Include="DTO\Position.cs" />
     <Compile Include="DTO\ReqAuth.cs" />
     <Compile Include="DTO\WaitNextTurnReq.cs" />
     <Compile Include="DTO\WaitNextTurnResp.cs" />
+    <Compile Include="MapModels\Map.cs" />
     <Compile Include="RestHelper.cs" />
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Ghosts\GhostClient.cs" />
@@ -70,6 +72,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Maps\classic.map.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
