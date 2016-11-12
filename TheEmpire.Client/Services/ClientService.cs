@@ -13,9 +13,12 @@ namespace TheEmpire.Client
 {
     class ClientService
     {
+        private static readonly Random _random = new Random();
+
         private string _serverUrl;
         private readonly string _teamName;
         private readonly int _sessionId;
+        private int _seqNumber;
 
         public ClientService(string serverUrl)
         {
@@ -42,6 +45,11 @@ namespace TheEmpire.Client
             }
         }
 
+        private int GetSequenceNumber()
+        {
+            return _seqNumber++;
+        }
+
         public WaitNextTurnResp WaitNextTurn(int playerId, int refTurn)
         {
             var addr = _serverUrl + "/ClientService.svc/json/WaitNextTurn";
@@ -55,7 +63,7 @@ namespace TheEmpire.Client
             var response = RestHelper.SendPost(new Uri(addr), data);
             JsonSerializer serializer = new JsonSerializer();
             using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
-            {
+        {
                 return (WaitNextTurnResp)serializer.Deserialize(streamReader, typeof(WaitNextTurnResp));
             }
         }
