@@ -10,6 +10,8 @@ namespace TheEmpire.Client
 {
     class TacManClient
     {
+        Dictionary<Cell, int> crawl = new Dictionary<Cell, int>();
+
         public List<Position> PerformMove(GetPlayerViewResp view)
         {
             var map = new Map(view.Map,view.GhostPositions, view.TecmanPosition);

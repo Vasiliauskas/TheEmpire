@@ -43,7 +43,7 @@ namespace TheEmpire.Client.MapModels
                             //    break;
                             //case GHOST:
                             //    Add(i, j, Content.Ghost);
-                                //break;
+                            //break;
                             default:
                                 break;
                         }
@@ -76,7 +76,7 @@ namespace TheEmpire.Client.MapModels
                     if (j == 1 && i == 1)
                         break;
 
-                    var point = new Point(i, j);
+                    var point = new Point(left + i, top + j);
                     if (_cells.ContainsKey(point))
                     {
                         var neighbor = _cells[point];
