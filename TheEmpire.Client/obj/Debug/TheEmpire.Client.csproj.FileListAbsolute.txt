@@ -1,0 +1,1 @@
+C:\Projects\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
