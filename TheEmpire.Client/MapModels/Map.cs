@@ -55,10 +55,14 @@ namespace TheEmpire.Client.MapModels
                     }
                 }
             }
+
+            FillNeighbours();
+
             foreach (var ghost in ghosts)
                 _cells[new Point(ghost.Col, ghost.Row)].Content = Content.Ghost;
 
             _cells[new Point(tacman.Col, tacman.Row)].Content = Content.Pacman;
+
 
         }
 
@@ -67,30 +71,39 @@ namespace TheEmpire.Client.MapModels
             var point = new Point(x, y);
             var cell = new Cell() { Point = point, Content = content };
             _cells.Add(point, new Cell() { Point = point, Content = content });
-            CreateNeighbourRelations(cell, isLast);
+            cell.IsLst = isLast;
+            //CreateNeighbourRelations(cell, isLast);
         }
 
-        protected void CreateNeighbourRelations(Cell cell, bool isLast)
+        protected void FillNeighbours()
         {
-            int left = cell.Point.X - 1;
-            int top = cell.Point.Y - 1;
-            for (int i = 0; i < 3; i++)
+            foreach (var cell in _cells.Values)
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    if (j == 1 && i == 1)
-                        break;
+                CreateNeighbourRelations(cell);
+            }
+        }
 
-                    var point = new Point(left + i, top + j);
-                    if (_cells.ContainsKey(point))
-                    {
-                        var neighbor = _cells[point];
-                        cell.AddNeighbour(neighbor);
-                        neighbor.AddNeighbour(cell);
-                    }
+        protected void CreateNeighbourRelations(Cell cell)
+        {
+            var left = new Point(cell.Point.X -1, cell.Point.Y);
+            var top = new Point(cell.Point.X, cell.Point.Y -1);
+            var right = new Point(cell.Point.X +1, cell.Point.Y);
+            var bottom = new Point(cell.Point.X, cell.Point.Y + 1);
+            var points = new List<Point> { left, top, right, bottom };
+            foreach (var point in points)
+            {
+                if (_cells.ContainsKey(point))
+                {
+                    var neighbor = _cells[point];
+                    cell.AddNeighbour(neighbor);
+                    neighbor.AddNeighbour(cell);
+                }
+                else
+                {
+                    Console.WriteLine($"Neighbour not found [{point.X},{point.Y}] for [{cell.Point.X},{cell.Point.Y}] ");
                 }
             }
-            if (isLast)
+            if (cell.IsLst)
             {
                 var teleportPoint = new Point(0, cell.Point.Y);
                 if (_cells.ContainsKey(teleportPoint))
@@ -108,6 +121,7 @@ namespace TheEmpire.Client.MapModels
         private List<Cell> _neighbours = new List<Cell>();
         public Point Point { get; set; }
         public Content Content { get; set; }
+        public bool IsLst { get; set; }
 
         public List<Cell> Neighbours
         {
