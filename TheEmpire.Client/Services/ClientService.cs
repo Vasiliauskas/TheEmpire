@@ -18,7 +18,7 @@ namespace TheEmpire.Client
             throw new NotImplementedException();
         }
 
-        public GetPlayerView()
+        public bool GetPlayerView()
         {
             throw new NotImplementedException();
 

@@ -49,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="DTO\ClientPlayerReq.cs" />
+    <Compile Include="DTO\ClientPlayerResp.cs" />
+    <Compile Include="DTO\Position.cs" />
+    <Compile Include="DTO\ReqAuth.cs" />
+    <Compile Include="DTO\WaitNextTurnReq.cs" />
+    <Compile Include="DTO\WaitNextTurnResp.cs" />
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Ghosts\GhostClient.cs" />
     <Compile Include="Program.cs" />
