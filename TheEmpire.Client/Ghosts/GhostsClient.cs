@@ -10,52 +10,32 @@ namespace TheEmpire.Client.Ghosts
 {
     class GhostClient
     {
-        private List<SimpleGhost> _ghosts = new List<SimpleGhost>();
 
         public List<Position> PerformMove(GetPlayerViewResp view)
         {
-            var map = new Map(view.Map);
-            
+            var map = new Map(view.Map, view.GhostPositions, view.TecmanPosition);
+
             var resultMoves = new List<Position>();
 
-            
-
-            var ghosts = map.Cells.Where(c => c.Content == Content.Ghost).ToList();
-            for(int i = 0; i < ghosts.Count(); i++)
+            for (int i = 0; i < view.GhostPositions.Count(); i++)
             {
-                if(_ghosts[i] == null)
-                {
-                    _ghosts[i] = new SimpleGhost();
-                }
+                var position = GetNextPosition(view.Map, view.GhostPositions[i], view.TecmanPosition, view.PreviousGhostPositions, view.PreviousTecmanPosition);
+                resultMoves.Add(position);
             }
 
-            var tacman = map.Cells.Where(c => c.Content == Content.Pacman).FirstOrDefault();
-            if (tacman == null)
-            {
-                Console.WriteLine("No Tacman");
-            }
-            
-            
-            var response = new List<Position>();
-            response.Add(new Position() { Col = targetCell.Point.X, Row = targetCell.Point.Y });
-
-            return response;
+            return resultMoves;
         }
+
+        private Position GetNextPosition(EnMapData map, EnPoint enPoint, EnPoint tecmanPosition, EnPoint[] previousGhostPositions, EnPoint previousTecmanPosition)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
-    //public class SimpleGhost
-    //{
-    //    public Cell PreviousPosition { get; set; }
-        
-    //    public Position GetNextPosion(Map map, Cell currentPosition)
-    //    {
-    //        throw new NotImplementedException();
-    //        PreviousPosition = currentPosition;
-    //    }
-    //}
 
     public static class CellExts
     {
-        
+
     }
 }
