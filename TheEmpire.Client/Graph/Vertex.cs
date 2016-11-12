@@ -15,8 +15,8 @@ namespace TheEmpire.Client.Graph
             Edges = new List<Edge>();
         }
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
         public bool HasGhost { get; set; }
         public bool HasTacman { get; set; }
         public bool HasCookie { get; set; }
