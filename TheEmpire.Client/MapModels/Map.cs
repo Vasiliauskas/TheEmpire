@@ -13,15 +13,13 @@ namespace TheEmpire.Client.MapModels
         protected const char WALL = '#';
         protected const char SPACE = ' ';
         protected const char COOKIE = '.';
-        protected const char GHOST = 'H';
-        protected const char PACMAN = 'C';
 
         public IEnumerable<Cell> Cells
         {
             get { return _cells.Values; }
         }
 
-        public Map(EnMapData mapData)
+        public Map(EnMapData mapData, IEnumerable<EnPoint> ghosts, EnPoint tacman)
         {
             for (int j = 0; j < mapData.Rows.Length; j++)
             {
@@ -40,18 +38,23 @@ namespace TheEmpire.Client.MapModels
                             case COOKIE:
                                 Add(i, j, Content.Cookie);
                                 break;
-                            case PACMAN:
-                                Add(i, j, Content.Pacman);
-                                break;
-                            case GHOST:
-                                Add(i, j, Content.Ghost);
-                                break;
+                            //case PACMAN:
+                            //    Add(i, j, Content.Pacman);
+                            //    break;
+                            //case GHOST:
+                            //    Add(i, j, Content.Ghost);
+                                //break;
                             default:
                                 break;
                         }
                     }
                 }
             }
+            foreach (var ghost in ghosts)
+                _cells[new Point(ghost.Col, ghost.Row)].Content = Content.Ghost;
+
+            _cells[new Point(tacman.Col, tacman.Row)].Content = Content.Ghost;
+
         }
 
         protected void Add(int x, int y, Content content)
