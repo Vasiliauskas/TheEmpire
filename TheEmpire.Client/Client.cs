@@ -8,5 +8,6 @@ namespace TheEmpire.Client
 {
     class Client
     {
+        
     }
 }
