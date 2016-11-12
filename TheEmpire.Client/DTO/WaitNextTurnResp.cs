@@ -25,10 +25,9 @@ namespace TheEmpire.Client.DTO
         public string Mode;
         public EnMapData Map;
         public EnPoint TecmanPosition;
-        public List<EnPoint> GhostPositions;
-        public List<EnPoint> PreviousTecmanPosition;
-        public string Status;
-        public string Message;
+        public EnPoint[] GhostPositions;
+        public EnPoint PreviousTecmanPosition;
+        public EnPoint[] PreviousGhostPositions;
     }
     public class PerformMoveRequest : BaseReq
     {
