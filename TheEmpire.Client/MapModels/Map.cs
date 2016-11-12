@@ -98,10 +98,6 @@ namespace TheEmpire.Client.MapModels
                     cell.AddNeighbour(neighbor);
                     neighbor.AddNeighbour(cell);
                 }
-                else
-                {
-                    Console.WriteLine($"Neighbour not found [{point.X},{point.Y}] for [{cell.Point.X},{cell.Point.Y}] ");
-                }
             }
             if (cell.IsLst)
             {
