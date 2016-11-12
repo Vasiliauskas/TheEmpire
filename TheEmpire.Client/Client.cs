@@ -11,13 +11,16 @@ namespace TheEmpire.Client
     class Client
     {
         protected readonly string _serverUrl;
-        protected bool _isGameComplete;
+        private GhostClient _ghostClient = new GhostClient();
+        private TacManClient _tacManClient = new TacManClient();
         protected ClientService _service;
 
         public Client(string serverUrl)
         {
             _serverUrl = serverUrl;
             _service = new ClientService(serverUrl);
+            _ghostClient = new GhostClient();
+            _ghostClient = new GhostClient();
         }
 
         public void Start()
@@ -27,11 +30,13 @@ namespace TheEmpire.Client
             GetRefTurn();
             while (true)
             {
+                GetPlayerView(GetPlayerViewReq request);
+
                 var nextTurn = WaitNextTurn();
                 if (nextTurn.GameFinished)
                     break;
 
-                if(nextTurn.YourTurn && !nextTurn.TurnComplete)
+                if (nextTurn.YourTurn && !nextTurn.TurnComplete)
                 {
                     TakeTurn();
                 }
@@ -40,7 +45,7 @@ namespace TheEmpire.Client
             }
         }
 
-        private WaitNextTurnResp WaitNextTurn()
+        private WaitNextTurnResp WaitNextTurn(WaitNextTurnReq request)
         {
             throw new NotImplementedException();
         }
