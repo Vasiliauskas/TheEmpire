@@ -68,13 +68,13 @@ namespace TheEmpire.Client
             }
         }
 
-        public bool GetPlayerView()
+        public GetPlayerViewResp GetPlayerView()
         {
             throw new NotImplementedException();
 
         }
 
-        public bool PerformMove()
+        public PerformMoveResponse PerformMove(PerformMoveRequest request)
         {
             throw new NotImplementedException();
         }
