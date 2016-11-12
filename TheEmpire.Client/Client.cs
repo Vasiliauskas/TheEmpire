@@ -9,7 +9,7 @@ using TheEmpire.Client.Services;
 
 namespace TheEmpire.Client
 {
-    class Client
+    abstract class Client
     {
         protected bool _isGameComplete;
         protected readonly GameService _service;
@@ -28,10 +28,11 @@ namespace TheEmpire.Client
             {
                 var nextTurn = WaitNextTurn();
                 if (nextTurn.GameFinished)
-                    break;
+                    return;
 
                 if(nextTurn.YourTurn && !nextTurn.TurnComplete)
                 {
+                    if (!TakeTurn()) // failover if one failed, do second
                     TakeTurn();
                 }
 
@@ -63,8 +64,22 @@ namespace TheEmpire.Client
         {
         }
 
-        public virtual void TakeTurn()
+        protected bool TakeTurn()
         {
+            var view = _service.GetPlayerView();
+            try
+            {
+                var resp = PerformMove(view);
+                var responseMove = _service.PerformMove(resp);
+                // pratesti
+            }
+            catch(Exception ex)
+        {
+                return false;
+            }
+            return true;
         }
+
+        protected abstract PerformMoveRequest PerformMove(GetPlayerViewResp view);
     }
 }
