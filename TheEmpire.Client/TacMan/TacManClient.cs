@@ -14,7 +14,9 @@ namespace TheEmpire.Client
         {
             _service = new ClientService(serverUrl);
             var player = _service.CreatePlayer();
-            Console.WriteLine();
+            var refTurn = 0;
+            var nexturnResp = _service.WaitNextTurn(player.PlayerId, refTurn);
+            Console.WriteLine(nexturnResp.Status+nexturnResp.TurnComplete);
         }
     }
 }

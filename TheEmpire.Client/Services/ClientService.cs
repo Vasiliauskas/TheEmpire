@@ -14,34 +14,50 @@ namespace TheEmpire.Client
     class ClientService
     {
         private string _serverUrl;
+        private readonly string _teamName;
+        private readonly int _sessionId;
 
         public ClientService(string serverUrl)
         {
             this._serverUrl = serverUrl;
+            _teamName = ConfigurationManager.AppSettings["TeamName"];
+
+            var rnd = new Random(DateTime.Now.Millisecond/3);
+            _sessionId = rnd.Next();
         }
 
         public CreatePlayerResp CreatePlayer()
         {
             var addr = _serverUrl+"/ClientService.svc/json/CreatePlayer";
-
             var createPlayerRequest = new CreatePlayerReq()
             {
-                Auth = new ReqAuth() { ClientName = "test", SequenceNumber = 1, SessionId = 4564, TeamName = "The Empire" }
+                Auth = new ReqAuth() { ClientName = "TheEmpireClient", SequenceNumber = 1, SessionId = _sessionId, TeamName = _teamName }
             };
             var data = Newtonsoft.Json.JsonConvert.SerializeObject(createPlayerRequest);
-
             var response = RestHelper.SendPost(new Uri(addr), data);
             JsonSerializer serializer = new JsonSerializer();
-
             using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
             {
                 return (CreatePlayerResp)serializer.Deserialize(streamReader, typeof(CreatePlayerResp));
             }
         }
 
-        public bool WaitNextTurn()
+        public WaitNextTurnResp WaitNextTurn(int playerId, int refTurn)
         {
-            throw new NotImplementedException();
+            var addr = _serverUrl + "/ClientService.svc/json/WaitNextTurn";
+            var createPlayerRequest = new WaitNextTurnReq()
+            {
+                PlayerId = playerId,
+                RefTurn = refTurn,
+                Auth = new ReqAuth() { ClientName = "TheEmpireClient", SequenceNumber = 2, SessionId = _sessionId, TeamName = _teamName }
+            };
+            var data = Newtonsoft.Json.JsonConvert.SerializeObject(createPlayerRequest);
+            var response = RestHelper.SendPost(new Uri(addr), data);
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                return (WaitNextTurnResp)serializer.Deserialize(streamReader, typeof(WaitNextTurnResp));
+            }
         }
 
         public bool GetPlayerView()
