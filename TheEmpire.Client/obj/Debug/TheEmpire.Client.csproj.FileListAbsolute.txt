@@ -1,1 +1,9 @@
 C:\Projects\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
+C:\src\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
+C:\src\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe
+C:\src\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.pdb
+C:\src\TheEmpire\TheEmpire.Client\bin\Debug\RestSharp.dll
+C:\src\TheEmpire\TheEmpire.Client\bin\Debug\RestSharp.xml
+C:\src\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.exe
+C:\src\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.pdb
+C:\src\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.csprojResolveAssemblyReference.cache
