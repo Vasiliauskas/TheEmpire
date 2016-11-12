@@ -8,6 +8,10 @@ namespace TheEmpire.Client
 {
     class Client
     {
-        
+        private readonly string _serverUrl;
+        public Client(string serverUrl)
+        {
+            _serverUrl = serverUrl;
+        }
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client
 {
-    class GhostClient
+    class GhostClient : Client
+    {
+        public GhostClient(string serverUrl) : base(serverUrl)
     {
     }
+}
 }

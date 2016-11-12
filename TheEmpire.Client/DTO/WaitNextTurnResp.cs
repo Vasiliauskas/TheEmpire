@@ -29,7 +29,8 @@ namespace TheEmpire.Client.DTO
         List<EnPoint> PreviousTecmanPosition;
         string Status;
         string Message;
-    }    class EnMapData
+    }
+    class EnMapData
     {
         int Width;
         int Height;
@@ -49,14 +50,17 @@ namespace TheEmpire.Client.DTO
     {
         string Status;
         string Message;
-    }
+    }
+
     class BaseReq
     {
         ReqAuth Auth;
-    }
+    }
+
     class PerformMoveResponse : BaseResp
     {
         string Status;
         string Message;
-    }
+    }
+
 }
