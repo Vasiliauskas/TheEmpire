@@ -21,7 +21,6 @@ namespace TheEmpire.Client
 
         public void Start()
         {
-            GetSessionID();
             CreatePlayer();
             GetRefTurn();
             while (true)
@@ -55,11 +54,6 @@ namespace TheEmpire.Client
             _service.CreatePlayer();
         }
 
-        private void GetSessionID()
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual void IsGameCompleted()
         {
         }
@@ -70,7 +64,7 @@ namespace TheEmpire.Client
             try
             {
                 var resp = PerformMove(view);
-                var responseMove = _service.PerformMove(resp);
+                var responseMove = _service.PerformMove(null);
                 // pratesti
             }
             catch(Exception ex)

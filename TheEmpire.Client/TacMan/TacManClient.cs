@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheEmpire.Client.DTO;
 
 namespace TheEmpire.Client
 {
@@ -17,6 +18,11 @@ namespace TheEmpire.Client
             var refTurn = 0;
             var nexturnResp = _service.WaitNextTurn(player.PlayerId, refTurn);
             Console.WriteLine(nexturnResp.Status+nexturnResp.TurnComplete);
+        }
+
+        protected override PerformMoveRequest PerformMove(GetPlayerViewResp view)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -17,16 +17,26 @@ namespace TheEmpire.Client.Services
             _client = new ClientService(url);
         }
 
-        public WaitNextTurnResp WaitNextTurn()
+        public WaitNextTurnResp WaitNextTurn(int refTurn = 0)
         {
-            throw new NotImplementedException();
+            return _client.WaitNextTurn(_playerId, refTurn);
         }
 
-        internal void CreatePlayer()
+        public GetPlayerViewResp GetPlayerView()
+        {
+            return _client.GetPlayerView(_playerId);
+        }
+
+        public void CreatePlayer()
         {
             var player = _client.CreatePlayer();
             Console.WriteLine($"Got player id: {player.PlayerId} status {player.Status} message {player.Message}");
             _playerId = player.PlayerId;
+        }
+
+        public PerformMoveResponse PerformMove(IEnumerable<Position> positions)
+        {
+            return _client.PerformMove(_playerId, positions);
         }
     }
 }
