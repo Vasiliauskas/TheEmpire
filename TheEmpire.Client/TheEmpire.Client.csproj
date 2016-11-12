@@ -64,7 +64,6 @@
     <Compile Include="Ghosts\GhostsClient.cs" />
     <Compile Include="Graph\Edge.cs" />
     <Compile Include="Graph\Vertex.cs" />
-    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="MapModels\Map.cs" />
     <Compile Include="RestHelper.cs" />
     <Compile Include="Services\ClientService.cs" />

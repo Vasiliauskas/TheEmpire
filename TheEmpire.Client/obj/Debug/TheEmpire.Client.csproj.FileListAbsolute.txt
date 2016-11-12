@@ -24,3 +24,4 @@ C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\bin\Debug\Newtonsoft.Jso
 C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.csprojResolveAssemblyReference.cache
 C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.exe
 C:\Users\bbox\Desktop\Repos2\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.pdb
+C:\Users\bbox\Source\Repos\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
