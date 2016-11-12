@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TheEmpire.Client.DTO;
 using TheEmpire.Client.Services;
 
+<<<<<<< HEAD
 namespace TheEmpire.Client
 {
     abstract class Client
@@ -17,6 +18,26 @@ namespace TheEmpire.Client
         public Client(string serverUrl)
         {
             _service = new GameService(serverUrl);
+=======
+namespace TheEmpire.Client
+{
+    abstract class Client
+    {
+        protected readonly string _serverUrl;
+        private GhostClient _ghostClient = new GhostClient();
+        private TacManClient _tacManClient = new TacManClient();
+        protected ClientService _service;
+        protected bool _isGameComplete;
+        protected readonly GameService _service;
+
+        public Client(string serverUrl)
+        {
+            _service = new GameService(serverUrl);
+            _serverUrl = serverUrl;
+            _service = new ClientService(serverUrl);
+            _ghostClient = new GhostClient();
+            _ghostClient = new GhostClient();
+>>>>>>> e71f7621b5666e47f8dcca2d5445609684725bc4
         }
 
         public void Start()
@@ -25,11 +46,13 @@ namespace TheEmpire.Client
             GetRefTurn();
             while (true)
             {
+                GetPlayerView(GetPlayerViewReq request);
+
                 var nextTurn = WaitNextTurn();
                 if (nextTurn.GameFinished)
                     return;
 
-                if(nextTurn.YourTurn && !nextTurn.TurnComplete)
+                if (nextTurn.YourTurn && !nextTurn.TurnComplete)
                 {
                     if (!TakeTurn()) // failover if one failed, do second
                     TakeTurn();
@@ -39,7 +62,7 @@ namespace TheEmpire.Client
             }
         }
 
-        private WaitNextTurnResp WaitNextTurn()
+        private WaitNextTurnResp WaitNextTurn(WaitNextTurnReq request)
         {
             return _service.WaitNextTurn();
         }

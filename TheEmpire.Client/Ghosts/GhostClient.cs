@@ -7,15 +7,7 @@ using TheEmpire.Client.DTO;
 
 namespace TheEmpire.Client
 {
-    class GhostClient : Client
+    class GhostClient
     {
-        public GhostClient(string serverUrl) : base(serverUrl)
-    {
-    }
-
-        protected override PerformMoveRequest PerformMove(GetPlayerViewResp view)
-        {
-            throw new NotImplementedException();
-        }
-    }
+}
 }
