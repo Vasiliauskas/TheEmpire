@@ -26,7 +26,7 @@ namespace TheEmpire.Client
 
             var createPlayerRequest = new CreatePlayerReq()
             {
-                 
+                Auth = new ReqAuth() { ClientName = "test", SequenceNumber = 1, SessionId = 4564, TeamName = "The Empire" }
             };
             var data = Newtonsoft.Json.JsonConvert.SerializeObject(createPlayerRequest);
 
