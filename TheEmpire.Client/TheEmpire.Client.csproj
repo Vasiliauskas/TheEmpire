@@ -61,10 +61,10 @@
     <Compile Include="DTO\ReqAuth.cs" />
     <Compile Include="DTO\WaitNextTurnReq.cs" />
     <Compile Include="DTO\WaitNextTurnResp.cs" />
+    <Compile Include="Ghosts\GhostsClient.cs" />
     <Compile Include="MapModels\Map.cs" />
     <Compile Include="RestHelper.cs" />
     <Compile Include="Services\ClientService.cs" />
-    <Compile Include="Ghosts\GhostClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GameService.cs" />
