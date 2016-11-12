@@ -53,7 +53,7 @@ namespace TheEmpire.Client.MapModels
             foreach (var ghost in ghosts)
                 _cells[new Point(ghost.Col, ghost.Row)].Content = Content.Ghost;
 
-            _cells[new Point(tacman.Col, tacman.Row)].Content = Content.Ghost;
+            _cells[new Point(tacman.Col, tacman.Row)].Content = Content.Pacman;
 
         }
 
