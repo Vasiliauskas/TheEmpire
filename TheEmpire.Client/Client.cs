@@ -24,14 +24,13 @@ namespace TheEmpire.Client
         public void Start()
         {
             CreatePlayer();
-            GetRefTurn();
             while (true)
             {
                 var nextTurn = WaitNextTurn();
                 if (nextTurn.GameFinished)
                     return;
 
-                if (nextTurn.YourTurn && !nextTurn.TurnComplete)
+                if (nextTurn.TurnComplete)
                 {
                     if (!TakeTurn()) // failover if one failed, do second
                         TakeTurn();
@@ -43,7 +42,7 @@ namespace TheEmpire.Client
 
         private WaitNextTurnResp WaitNextTurn()
         {
-            return _service.WaitNextTurn();
+            return _service.WaitNextTurn(_lastTurn);
         }
 
         private void GetRefTurn()
@@ -60,9 +59,12 @@ namespace TheEmpire.Client
         {
         }
 
+        protected int _lastTurn = 0;
+
         protected bool TakeTurn()
         {
             var view = _service.GetPlayerView();
+            _lastTurn = view.Turn;
             try
             {
                 IEnumerable<Position> req = null;
