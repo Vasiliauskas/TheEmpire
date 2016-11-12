@@ -6,51 +6,61 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client.DTO
 {
-    class WaitNextTurnResp : BaseResp
+    public class WaitNextTurnResp : BaseResp
     {
-        bool TurnComplete;
-        bool GameFinished;
-        string FinishCondition;
-        string FinishComment;
-        bool YourTurn;
+        public bool TurnComplete;
+        public bool GameFinished;
+        public string FinishCondition;
+        public string FinishComment;
+        public bool YourTurn;
     }
 
-    class GetPlayerViewReq : BaseReq
+    public class GetPlayerViewReq : BaseReq
     {
-        int PlayerId;
+        public int PlayerId;
     }
-    class GetPlayerViewResp : BaseResp
+    public class GetPlayerViewResp : BaseResp
     {
-        int Turn;
-        string Mode;
-        EnMapData Map;
-        EnPoint TecmanPosition;
-        List<EnPoint> GhostPositions;
-        List<EnPoint> PreviousTecmanPosition;
-        string Status;
-        string Message;
+        public int Turn;
+        public string Mode;
+        public EnMapData Map;
+        public EnPoint TecmanPosition;
+        public List<EnPoint> GhostPositions;
+        public List<EnPoint> PreviousTecmanPosition;
+        public string Status;
+        public string Message;
     }
-  
-    class PerformMoveRequest : BaseReq
+    public class EnMapData
     {
-        int PlayerId;
-        List<Position> Positions;
+        public int Width;
+        public int Height;
+        public List<String> Rows;
     }
-    class BaseResp
+    public class EnPoint
     {
-        string Status;
-        string Message;
+        public int Row;
+        public int Col;
+    }
+    public class PerformMoveRequest : BaseReq
+    {
+        public int PlayerId;
+        public List<Position> Positions;
+    }
+    public class BaseResp
+    {
+        public string Status;
+        public string Message;
     }
 
-    class BaseReq
+    public class BaseReq
     {
-        ReqAuth Auth;
+        public ReqAuth Auth;
     }
 
-    class PerformMoveResponse : BaseResp
+    public class PerformMoveResponse : BaseResp
     {
-        string Status;
-        string Message;
+        public string Status;
+        public string Message;
     }
 
 }
