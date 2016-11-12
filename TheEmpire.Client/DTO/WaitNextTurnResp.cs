@@ -30,17 +30,6 @@ namespace TheEmpire.Client.DTO
         public string Status;
         public string Message;
     }
-    public class EnMapData
-    {
-        public int Width;
-        public int Height;
-        public List<String> Rows;
-    }
-    public class EnPoint
-    {
-        public int Row;
-        public int Col;
-    }
     public class PerformMoveRequest : BaseReq
     {
         public int PlayerId;
