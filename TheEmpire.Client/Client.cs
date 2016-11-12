@@ -24,26 +24,41 @@ namespace TheEmpire.Client
         public void Start()
         {
             CreatePlayer();
-            GetRefTurn();
             while (true)
             {
                 var nextTurn = WaitNextTurn();
-                if (nextTurn.GameFinished)
-                    return;
+                Console.WriteLine("Next Turn: " + nextTurn.Message);
+                Console.WriteLine("Next Turn: " + nextTurn.Status);
 
-                if (nextTurn.YourTurn && !nextTurn.TurnComplete)
+                if (nextTurn.GameFinished)
                 {
-                    if (!TakeTurn()) // failover if one failed, do second
+                    Console.WriteLine("Game finished: " + nextTurn.FinishCondition);
+                    return;
+                }
+
+                if (nextTurn.TurnComplete)
+                {
+                    //if (!TakeTurn()) // failover if one failed, do second
+                    try
+                    {
                         TakeTurn();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Turn failed: " + ex.Message);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                 }
 
                 Thread.Sleep(50);
+                Console.WriteLine("______________________________");
             }
         }
 
         private WaitNextTurnResp WaitNextTurn()
         {
-            return _service.WaitNextTurn();
+            return _service.WaitNextTurn(_lastTurn);
         }
 
         private void GetRefTurn()
@@ -60,11 +75,16 @@ namespace TheEmpire.Client
         {
         }
 
+        protected int _lastTurn = 0;
+
         protected bool TakeTurn()
         {
             var view = _service.GetPlayerView();
+            _lastTurn = view.Turn;
             try
             {
+                Console.WriteLine($"Taking Turn {view.Mode}");
+
                 IEnumerable<Position> req = null;
                 if (view.Mode == "TacMan")
                     req = new TacManClient().PerformMove(view);
@@ -72,10 +92,13 @@ namespace TheEmpire.Client
                     req = new GhostClient().PerformMove(view);
 
                 var responseMove = _service.PerformMove(req);
+                Console.WriteLine($"Move response {responseMove.Message}");
+                Console.WriteLine($"Move response {responseMove.Status}");
                 // pratesti algo
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Taking Turn {_lastTurn}failed: " + ex.Message);
                 return false;
             }
             return true;

@@ -7,7 +7,7 @@ namespace TheEmpire.Client.DTO
     {
         public int Width { get; set; }
         public int Height { get; set; }
-        public List<String> Rows { get; set; }
+        public string[] Rows { get; set; }
     }
     public class EnPoint
     {

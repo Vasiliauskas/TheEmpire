@@ -80,7 +80,7 @@ namespace TheEmpire.Client
 
         public GetPlayerViewResp GetPlayerView(int playerId)
         {
-            var addr = _serverUrl + "/ClientService.svc/json/GetPlayerViewn";
+            var addr = _serverUrl + "/ClientService.svc/json/GetPlayerView";
             var createPlayerRequest = new GetPlayerViewReq()
             {
                 PlayerId = playerId,
