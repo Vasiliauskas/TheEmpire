@@ -19,8 +19,10 @@ namespace TheEmpire.Client.Ghosts
 
             for (int i = 0; i < view.GhostPositions.Count(); i++)
             {
-                var position = GetNextPosition(view.Map, view.GhostPositions[i], view.TecmanPosition, view.PreviousGhostPositions, view.PreviousTecmanPosition);
-                resultMoves.Add(position);
+                var pos = view.GhostPositions[i];
+                var cell = map.Cells.Where(c => c.Point.X == pos.Col && c.Point.Y == pos.Row).Single();
+                var targetCell = cell.Neighbours.First();
+                resultMoves.Add(new Position() { Col = targetCell.Point.X, Row = targetCell.Point.Y });
             }
 
             return resultMoves;
