@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client
 {
-    class TacManClient
+    class TacManClient : Client
     {
+        public TacManClient(string serverUrl) : base(serverUrl)
+        {
+        }
     }
 }
