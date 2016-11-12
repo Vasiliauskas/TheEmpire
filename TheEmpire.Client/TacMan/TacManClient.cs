@@ -16,7 +16,12 @@ namespace TheEmpire.Client
         {
             var map = new Map(view.Map,view.GhostPositions, view.TecmanPosition);
             var cell = map.Cells.Where(c => c.Content == Content.Pacman).Single();
-            var targetCell = cell.Neighbours.First();
+            var targetCell = cell.Neighbours.FirstOrDefault(c=>c.Content == Content.Cookie);
+            if(targetCell == null)
+            {
+                targetCell = cell.Neighbours.SingleOrDefault(c => c.Content != Content.Ghost);
+                // get closes direction to cookie
+            }
 
             var response = new List<Position>();
             response.Add(new Position() { Col = targetCell.Point.X, Row = targetCell.Point.Y });

@@ -27,16 +27,19 @@ namespace TheEmpire.Client.MapModels
                 {
                     for (int i = 0; i < row.Length; i++)
                     {
+
                         var symbol = Char.ToUpper(row[i]);
+                        var isLast = symbol != WALL && i == row.Length - 1;
+
                         switch (symbol)
                         {
                             case WALL:
                                 break;
                             case SPACE:
-                                Add(i, j, Content.Empty);
+                                Add(i, j, Content.Empty, isLast);
                                 break;
                             case COOKIE:
-                                Add(i, j, Content.Cookie);
+                                Add(i, j, Content.Cookie, isLast);
                                 break;
                             //case PACMAN:
                             //    Add(i, j, Content.Pacman);
@@ -47,42 +50,63 @@ namespace TheEmpire.Client.MapModels
                             default:
                                 break;
                         }
+
+
                     }
                 }
             }
+
+            FillNeighbours();
+
             foreach (var ghost in ghosts)
                 _cells[new Point(ghost.Col, ghost.Row)].Content = Content.Ghost;
 
             _cells[new Point(tacman.Col, tacman.Row)].Content = Content.Pacman;
 
+
         }
 
-        protected void Add(int x, int y, Content content)
+        protected void Add(int x, int y, Content content, bool isLast)
         {
             var point = new Point(x, y);
             var cell = new Cell() { Point = point, Content = content };
             _cells.Add(point, new Cell() { Point = point, Content = content });
-            CreateNeighbourRelations(cell);
+            cell.IsLst = isLast;
+            //CreateNeighbourRelations(cell, isLast);
+        }
+
+        protected void FillNeighbours()
+        {
+            foreach (var cell in _cells.Values)
+            {
+                CreateNeighbourRelations(cell);
+            }
         }
 
         protected void CreateNeighbourRelations(Cell cell)
         {
-            int left = cell.Point.X - 1;
-            int top = cell.Point.Y - 1;
-            for (int i = 0; i < 3; i++)
+            var left = new Point(cell.Point.X -1, cell.Point.Y);
+            var top = new Point(cell.Point.X, cell.Point.Y -1);
+            var right = new Point(cell.Point.X +1, cell.Point.Y);
+            var bottom = new Point(cell.Point.X, cell.Point.Y + 1);
+            var points = new List<Point> { left, top, right, bottom };
+            foreach (var point in points)
             {
-                for (int j = 0; j < 3; j++)
+                if (_cells.ContainsKey(point))
                 {
-                    if (j == 1 && i == 1)
-                        break;
-
-                    var point = new Point(left + i, top + j);
-                    if (_cells.ContainsKey(point))
-                    {
-                        var neighbor = _cells[point];
-                        cell.AddNeighbour(neighbor);
-                        neighbor.AddNeighbour(cell);
-                    }
+                    var neighbor = _cells[point];
+                    cell.AddNeighbour(neighbor);
+                    neighbor.AddNeighbour(cell);
+                }
+            }
+            if (cell.IsLst)
+            {
+                var teleportPoint = new Point(0, cell.Point.Y);
+                if (_cells.ContainsKey(teleportPoint))
+                {
+                    var neighbor = _cells[teleportPoint];
+                    cell.AddNeighbour(neighbor);
+                    neighbor.AddNeighbour(cell);
                 }
             }
         }
@@ -93,6 +117,7 @@ namespace TheEmpire.Client.MapModels
         private List<Cell> _neighbours = new List<Cell>();
         public Point Point { get; set; }
         public Content Content { get; set; }
+        public bool IsLst { get; set; }
 
         public List<Cell> Neighbours
         {
