@@ -38,8 +38,8 @@ namespace TheEmpire.Client.Ghosts
                 return new Position() { Col = destinationCell.Point.X, Row = destinationCell.Point.Y };
             }
 
-            var xDirction = previousGhostPosition.Col - ghostPosition.Col;
-            var yDirection = previousGhostPosition.Row - ghostPosition.Row;
+            var xDirction =  ghostPosition.Col - previousGhostPosition.Col;
+            var yDirection = ghostPosition.Row - previousGhostPosition.Row;
 
             //Changing X
             if (xDirction != 0)
