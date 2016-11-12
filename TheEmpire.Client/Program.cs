@@ -15,6 +15,7 @@ namespace TheEmpire.Client
         {
             var client = new Client(ConfigurationManager.AppSettings["connection"]);
             client.Start();
+            Console.ReadLine();
         }
 
         // testing purposes

@@ -86,7 +86,7 @@ namespace TheEmpire.Client
                 Console.WriteLine($"Taking Turn {view.Mode}");
 
                 IEnumerable<Position> req = null;
-                if (view.Mode == "TacMan")
+                if (view.Mode == "TECMAN")
                     req = new TacManClient().PerformMove(view);
                 else
                     req = new GhostClient().PerformMove(view);
