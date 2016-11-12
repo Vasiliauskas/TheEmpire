@@ -23,7 +23,7 @@ namespace TheEmpire.Client.MapModels
 
         public Map(EnMapData mapData)
         {
-            for (int j = 0; j < mapData.Rows.Count; j++)
+            for (int j = 0; j < mapData.Rows.Length; j++)
             {
                 var row = mapData.Rows[j];
                 {

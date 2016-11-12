@@ -21,14 +21,15 @@ namespace TheEmpire.Client
         static void Test()
         {
             var dto = new DTO.EnMapData();
-            dto.Rows = new List<string>();
+            var rows = new List<string>();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "Maps\\classic.map.txt");
 
             foreach (var row in File.ReadAllLines(path))
             {
                 Console.WriteLine(row);
-                dto.Rows.Add(row);
+                rows.Add(row);
             }
+            dto.Rows = rows.ToArray();
 
             Console.WriteLine("Done");
 
