@@ -5,18 +5,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TheEmpire.Client.DTO;
+using TheEmpire.Client.Services;
 
 namespace TheEmpire.Client
 {
-    class Client
+    abstract class Client
     {
         protected readonly string _serverUrl;
         private GhostClient _ghostClient = new GhostClient();
         private TacManClient _tacManClient = new TacManClient();
         protected ClientService _service;
+        protected bool _isGameComplete;
+        protected readonly GameService _service;
 
         public Client(string serverUrl)
         {
+            _service = new GameService(serverUrl);
             _serverUrl = serverUrl;
             _service = new ClientService(serverUrl);
             _ghostClient = new GhostClient();
@@ -34,10 +38,11 @@ namespace TheEmpire.Client
 
                 var nextTurn = WaitNextTurn();
                 if (nextTurn.GameFinished)
-                    break;
+                    return;
 
                 if (nextTurn.YourTurn && !nextTurn.TurnComplete)
                 {
+                    if (!TakeTurn()) // failover if one failed, do second
                     TakeTurn();
                 }
 
@@ -47,7 +52,7 @@ namespace TheEmpire.Client
 
         private WaitNextTurnResp WaitNextTurn(WaitNextTurnReq request)
         {
-            throw new NotImplementedException();
+            return _service.WaitNextTurn();
         }
 
         private void GetRefTurn()
@@ -57,7 +62,7 @@ namespace TheEmpire.Client
 
         private void CreatePlayer()
         {
-            throw new NotImplementedException();
+            _service.CreatePlayer();
         }
 
         private void GetSessionID()
@@ -69,8 +74,22 @@ namespace TheEmpire.Client
         {
         }
 
-        public virtual void TakeTurn()
+        protected bool TakeTurn()
         {
+            var view = _service.GetPlayerView();
+            try
+            {
+                var resp = PerformMove(view);
+                var responseMove = _service.PerformMove(resp);
+                // pratesti
+            }
+            catch(Exception ex)
+        {
+                return false;
+            }
+            return true;
         }
+
+        protected abstract PerformMoveRequest PerformMove(GetPlayerViewResp view);
     }
 }
