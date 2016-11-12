@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client.DTO
 {
-    class WaitNextTurnReq : BaseReq
+    public class WaitNextTurnReq : BaseReq
     {
-        int PlayerId;
-        int RefTurn;
+        public int PlayerId;
+        public int RefTurn;
     }
 }

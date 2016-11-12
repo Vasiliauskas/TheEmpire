@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client.DTO
 {
-    class CreatePlayerReq : BaseReq
+    public class CreatePlayerReq : BaseReq
     {
         // empty
-    }
+    }
+
 }

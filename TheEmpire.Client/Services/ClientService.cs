@@ -1,16 +1,42 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TheEmpire.Client.DTO;
 
 namespace TheEmpire.Client
 {
     class ClientService
     {
-        public bool CreatePlayer()
+        private string _serverUrl;
+
+        public ClientService(string serverUrl)
         {
-            throw new NotImplementedException();
+            this._serverUrl = serverUrl;
+        }
+
+        public CreatePlayerResp CreatePlayer()
+        {
+            var addr = _serverUrl+"/ClientService.svc/json/CreatePlayer";
+
+            var createPlayerRequest = new CreatePlayerReq()
+            {
+                 
+            };
+            var data = Newtonsoft.Json.JsonConvert.SerializeObject(createPlayerRequest);
+
+            var response = RestHelper.SendPost(new Uri(addr), data);
+            JsonSerializer serializer = new JsonSerializer();
+
+            using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                return (CreatePlayerResp)serializer.Deserialize(streamReader, typeof(CreatePlayerResp));
+            }
         }
 
         public bool WaitNextTurn()

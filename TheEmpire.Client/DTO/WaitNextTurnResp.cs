@@ -6,61 +6,61 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client.DTO
 {
-    class WaitNextTurnResp : BaseResp
+    public class WaitNextTurnResp : BaseResp
     {
-        bool TurnComplete;
-        bool GameFinished;
-        string FinishCondition;
-        string FinishComment;
-        bool YourTurn;
+        public bool TurnComplete;
+        public bool GameFinished;
+        public string FinishCondition;
+        public string FinishComment;
+        public bool YourTurn;
     }
 
-    class GetPlayerViewReq : BaseReq
+    public class GetPlayerViewReq : BaseReq
     {
-        int PlayerId;
+        public int PlayerId;
     }
-    class GetPlayerViewResp : BaseResp
+    public class GetPlayerViewResp : BaseResp
     {
-        int Turn;
-        string Mode;
-        EnMapData Map;
-        EnPoint TecmanPosition;
-        List<EnPoint> GhostPositions;
-        List<EnPoint> PreviousTecmanPosition;
-        string Status;
-        string Message;
+        public int Turn;
+        public string Mode;
+        public EnMapData Map;
+        public EnPoint TecmanPosition;
+        public List<EnPoint> GhostPositions;
+        public List<EnPoint> PreviousTecmanPosition;
+        public string Status;
+        public string Message;
     }
-    class EnMapData
+    public class EnMapData
     {
-        int Width;
-        int Height;
-        List<String> Rows;
+        public int Width;
+        public int Height;
+        public List<String> Rows;
     }
-    class EnPoint
+    public class EnPoint
     {
-        int Row;
-        int Col;
+        public int Row;
+        public int Col;
     }
-    class PerformMoveRequest : BaseReq
+    public class PerformMoveRequest : BaseReq
     {
-        int PlayerId;
-        List<Position> Positions;
+        public int PlayerId;
+        public List<Position> Positions;
     }
-    class BaseResp
+    public class BaseResp
     {
-        string Status;
-        string Message;
-    }
-
-    class BaseReq
-    {
-        ReqAuth Auth;
+        public string Status;
+        public string Message;
     }
 
-    class PerformMoveResponse : BaseResp
+    public class BaseReq
     {
-        string Status;
-        string Message;
+        public ReqAuth Auth;
+    }
+
+    public class PerformMoveResponse : BaseResp
+    {
+        public string Status;
+        public string Message;
     }
 
 }

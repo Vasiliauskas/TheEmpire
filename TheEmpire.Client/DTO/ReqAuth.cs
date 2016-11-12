@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client.DTO
 {
-    class ReqAuth
+    public class ReqAuth
     {
-        string TeamName;
-        string ClientName;
-        int SessionId;
-        int SequenceNumber;
-        string AuthCode;
+        public string TeamName;
+        public string ClientName;
+        public int SessionId;
+        public int SequenceNumber;
+        public string AuthCode;
     }
 }

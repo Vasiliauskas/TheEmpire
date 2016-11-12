@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TheEmpire.Client.DTO
 {
-    class CreatePlayerResp : BaseResp
+    public class CreatePlayerResp : BaseResp
     {
-        int PlayerId;
+        public int PlayerId;
     }
 }
