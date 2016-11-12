@@ -15,3 +15,4 @@ C:\Projects\TheEmpire\TheEmpire.Client\bin\Debug\Newtonsoft.Json.dll
 C:\Projects\TheEmpire\TheEmpire.Client\bin\Debug\Newtonsoft.Json.xml
 C:\Projects\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.csprojResolveAssemblyReference.cache
 C:\Users\bbox\Source\Repos\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
+C:\src\TheEmpire\TheEmpire.Client\bin\Debug\Maps\classic.map.txt
