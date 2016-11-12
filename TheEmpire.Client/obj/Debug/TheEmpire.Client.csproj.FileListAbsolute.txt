@@ -12,3 +12,4 @@ C:\Projects\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.pdb
 C:\Projects\TheEmpire\TheEmpire.Client\bin\Debug\RestSharp.xml
 C:\Projects\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.exe
 C:\Projects\TheEmpire\TheEmpire.Client\obj\Debug\TheEmpire.Client.pdb
+C:\Users\bbox\Desktop\Repose\TheEmpire\TheEmpire\TheEmpire.Client\bin\Debug\TheEmpire.Client.exe.config
