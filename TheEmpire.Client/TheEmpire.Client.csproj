@@ -67,6 +67,7 @@
     <Compile Include="Ghosts\GhostClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GameService.cs" />
     <Compile Include="TacMan\TacManClient.cs" />
   </ItemGroup>
   <ItemGroup>
