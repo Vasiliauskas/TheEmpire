@@ -5,19 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TheEmpire.Client.DTO;
+using TheEmpire.Client.Services;
 
 namespace TheEmpire.Client
 {
     class Client
     {
-        protected readonly string _serverUrl;
         protected bool _isGameComplete;
-        protected ClientService _service;
+        protected readonly GameService _service;
 
         public Client(string serverUrl)
         {
-            _serverUrl = serverUrl;
-            _service = new ClientService(serverUrl);
+            _service = new GameService(serverUrl);
         }
 
         public void Start()
@@ -42,7 +41,7 @@ namespace TheEmpire.Client
 
         private WaitNextTurnResp WaitNextTurn()
         {
-            throw new NotImplementedException();
+            return _service.WaitNextTurn();
         }
 
         private void GetRefTurn()
@@ -52,7 +51,7 @@ namespace TheEmpire.Client
 
         private void CreatePlayer()
         {
-            throw new NotImplementedException();
+            _service.CreatePlayer();
         }
 
         private void GetSessionID()
