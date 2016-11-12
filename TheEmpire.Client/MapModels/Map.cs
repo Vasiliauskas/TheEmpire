@@ -27,16 +27,19 @@ namespace TheEmpire.Client.MapModels
                 {
                     for (int i = 0; i < row.Length; i++)
                     {
+
                         var symbol = Char.ToUpper(row[i]);
+                        var isLast = symbol != WALL && i == row.Length - 1;
+
                         switch (symbol)
                         {
                             case WALL:
                                 break;
                             case SPACE:
-                                Add(i, j, Content.Empty);
+                                Add(i, j, Content.Empty, isLast);
                                 break;
                             case COOKIE:
-                                Add(i, j, Content.Cookie);
+                                Add(i, j, Content.Cookie, isLast);
                                 break;
                             //case PACMAN:
                             //    Add(i, j, Content.Pacman);
@@ -47,6 +50,8 @@ namespace TheEmpire.Client.MapModels
                             default:
                                 break;
                         }
+
+
                     }
                 }
             }
@@ -57,15 +62,15 @@ namespace TheEmpire.Client.MapModels
 
         }
 
-        protected void Add(int x, int y, Content content)
+        protected void Add(int x, int y, Content content, bool isLast)
         {
             var point = new Point(x, y);
             var cell = new Cell() { Point = point, Content = content };
             _cells.Add(point, new Cell() { Point = point, Content = content });
-            CreateNeighbourRelations(cell);
+            CreateNeighbourRelations(cell, isLast);
         }
 
-        protected void CreateNeighbourRelations(Cell cell)
+        protected void CreateNeighbourRelations(Cell cell, bool isLast)
         {
             int left = cell.Point.X - 1;
             int top = cell.Point.Y - 1;
@@ -83,6 +88,16 @@ namespace TheEmpire.Client.MapModels
                         cell.AddNeighbour(neighbor);
                         neighbor.AddNeighbour(cell);
                     }
+                }
+            }
+            if (isLast)
+            {
+                var teleportPoint = new Point(0, cell.Point.Y);
+                if (_cells.ContainsKey(teleportPoint))
+                {
+                    var neighbor = _cells[teleportPoint];
+                    cell.AddNeighbour(neighbor);
+                    neighbor.AddNeighbour(cell);
                 }
             }
         }

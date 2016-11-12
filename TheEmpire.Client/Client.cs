@@ -23,36 +23,39 @@ namespace TheEmpire.Client
 
         public void Start()
         {
-            CreatePlayer();
             while (true)
             {
-                var nextTurn = WaitNextTurn();
-                Console.WriteLine("Next Turn: " + nextTurn.Message);
-                Console.WriteLine("Next Turn: " + nextTurn.Status);
-
-                if (nextTurn.GameFinished)
+                CreatePlayer();
+                while (true)
                 {
-                    Console.WriteLine("Game finished: " + nextTurn.FinishCondition);
-                    return;
-                }
+                    var nextTurn = WaitNextTurn();
+                    Console.WriteLine("Next Turn: " + nextTurn.Message);
+                    Console.WriteLine("Next Turn: " + nextTurn.Status);
 
-                if (nextTurn.TurnComplete)
-                {
-                    //if (!TakeTurn()) // failover if one failed, do second
-                    try
+                    if (nextTurn.GameFinished)
                     {
-                        TakeTurn();
+                        Console.WriteLine("Game finished: " + nextTurn.FinishCondition);
+                        break;
                     }
-                    catch (Exception ex)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Turn failed: " + ex.Message);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                }
 
-                Thread.Sleep(50);
-                Console.WriteLine("______________________________");
+                    if (nextTurn.TurnComplete)
+                    {
+                        //if (!TakeTurn()) // failover if one failed, do second
+                        try
+                        {
+                            TakeTurn();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Turn failed: " + ex.Message);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                    }
+
+                    Thread.Sleep(50);
+                    Console.WriteLine("______________________________");
+                }
             }
         }
 
