@@ -5,19 +5,26 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TheEmpire.Client.DTO;
+using TheEmpire.Client.Services;
 
 namespace TheEmpire.Client
 {
     abstract class Client
     {
         protected readonly string _serverUrl;
-        protected bool _isGameComplete;
+        private GhostClient _ghostClient = new GhostClient();
+        private TacManClient _tacManClient = new TacManClient();
         protected ClientService _service;
+        protected bool _isGameComplete;
+        protected readonly GameService _service;
 
         public Client(string serverUrl)
         {
+            _service = new GameService(serverUrl);
             _serverUrl = serverUrl;
             _service = new ClientService(serverUrl);
+            _ghostClient = new GhostClient();
+            _ghostClient = new GhostClient();
         }
 
         public void Start()
@@ -27,23 +34,25 @@ namespace TheEmpire.Client
             GetRefTurn();
             while (true)
             {
+                GetPlayerView(GetPlayerViewReq request);
+
                 var nextTurn = WaitNextTurn();
                 if (nextTurn.GameFinished)
                     return;
 
-                if(nextTurn.YourTurn && !nextTurn.TurnComplete)
+                if (nextTurn.YourTurn && !nextTurn.TurnComplete)
                 {
                     if (!TakeTurn()) // failover if one failed, do second
-                        TakeTurn();
+                    TakeTurn();
                 }
 
                 Thread.Sleep(50);
             }
         }
 
-        private WaitNextTurnResp WaitNextTurn()
+        private WaitNextTurnResp WaitNextTurn(WaitNextTurnReq request)
         {
-            _service.WaitNextTurn();
+            return _service.WaitNextTurn();
         }
 
         private void GetRefTurn()
@@ -53,7 +62,7 @@ namespace TheEmpire.Client
 
         private void CreatePlayer()
         {
-            throw new NotImplementedException();
+            _service.CreatePlayer();
         }
 
         private void GetSessionID()
@@ -75,7 +84,7 @@ namespace TheEmpire.Client
                 // pratesti
             }
             catch(Exception ex)
-            {
+        {
                 return false;
             }
             return true;
